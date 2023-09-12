@@ -1,6 +1,6 @@
 import React from "react";
 
-const Technologies = () => {
+const Technologies: React.FC = () => {
     return (
         <div>
             <ul>
