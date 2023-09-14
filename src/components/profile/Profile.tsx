@@ -32,8 +32,7 @@ export const Profile = () => {
                 </div>
             </div>
             <MyPosts/>
-
-
+            
         </div>
     );
 };

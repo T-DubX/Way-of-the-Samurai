@@ -12,16 +12,8 @@ export const MyPosts = () => {
                 <button className={s.btn}>Send</button>
             </div>
 
-            <Post/>
-            <Post/>
-            
-            {/*        <div className={s.item}>*/}
-            {/*            <div className={s.img}></div>*/}
-            {/*            <p className={s.text}>*/}
-            {/*                It`s our new program! Hey!*/}
-            {/*            </p>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
+            <Post message={' It`s our new program! Hey!'}/>
+            <Post message={"It's my first posts"}/>
 
         </div>
     );

@@ -1,12 +1,16 @@
 import React from 'react';
 import s from './Post.module.css'
 
-export const Post = () => {
+type PostPropsType = {
+    message: string
+}
+
+export const Post = (props: PostPropsType) => {
     return (
         <div className={s.item}>
             <div className={s.img}></div>
             <p className={s.text}>
-                Hey, why nobody love me?
+                {props.message}
             </p>
         </div>
     );
