@@ -1,3 +1,47 @@
 ul li {
     list-style-type: georgian;
 }
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.app-wrapper {
+    display: grid;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    grid-template-areas:
+    'h h'
+    'n c';
+
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 2fr 10fr;
+    grid-gap: 10px;
+}
+
+.header {
+    grid-area: h;
+    background-color: #7048ef;
+}
+
+.header img {
+    width: 30px;
+}
+
+.nav {
+    grid-area: n;
+    background-color: #7048ef;
+}
+
+.content {
+    grid-area: c;
+    background-color: white;
+}
+
+.content img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+}
