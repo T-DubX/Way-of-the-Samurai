@@ -1,8 +1,16 @@
 .nav {
     grid-area: n;
     background-color: #7048ef;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: .5rem;
 }
 
 .item {
     color: white;
+}
+
+.item:last-child {
+    margin-top: 20px;
 }
