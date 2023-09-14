@@ -5,6 +5,7 @@
     flex-direction: column;
     gap: 5px;
     padding: .5rem;
+    height: 70vh;
 }
 
 .item {
