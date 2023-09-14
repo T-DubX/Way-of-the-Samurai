@@ -2,6 +2,7 @@ import React from 'react';
 import mainImg from '../../assets/images/2219350.jpg'
 import avatar from '../../assets/images/avatar.jpg'
 import s from './Profile.module.css'
+import {MyPosts} from "./myPosts/MyPosts";
 
 export const Profile = () => {
     return (
@@ -30,29 +31,8 @@ export const Profile = () => {
 
                 </div>
             </div>
-            <div>
-                My posts
-            </div>
+            <MyPosts/>
 
-            <div className={s.newPost}>
-                <textarea placeholder='your news...'></textarea>
-                <button className={s.btn}>Send</button>
-            </div>
-            <div className={s.posts}>
-                <div className={s.item}>
-                    <div className={s.img}></div>
-                    <p className={s.text}>
-                        Hey, why nobody love me?
-                    </p>
-                </div>
-
-                <div className={s.item}>
-                    <div className={s.img}></div>
-                    <p className={s.text}>
-                        It`s our new program! Hey!
-                    </p>
-                </div>
-            </div>
 
         </div>
     );

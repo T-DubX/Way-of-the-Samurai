@@ -1,0 +1,32 @@
+/*new post*/
+
+.newPost {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+    margin-bottom: 50px;
+}
+
+.newPost textarea {
+    resize: none;
+    min-height: 50px;
+}
+
+.btn {
+    align-self: flex-end;
+    color: white;
+    padding: 5px 20px;
+    background-color: #7048ef;
+    border: 0;
+}
+
+/*post*/
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+
