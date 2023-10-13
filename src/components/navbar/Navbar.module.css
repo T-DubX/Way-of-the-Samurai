@@ -12,6 +12,14 @@
     color: white;
 }
 
+.item .active {
+    color: #a8a5a5;
+}
+
+/*.item {*/
+/*    color: #a8a5a5;*/
+/*}*/
+
 .item:last-child {
     margin-top: 20px;
 }

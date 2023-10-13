@@ -6,6 +6,9 @@ import {Profile} from "./components/profile/Profile";
 import {Dialogs} from "./components/dialogs/Dialogs";
 import s from "./components/dialogs/Dialogs.module.css";
 import {BrowserRouter, Route} from "react-router-dom";
+import {News} from "./components/news/News";
+import {Music} from "./components/music/Music";
+import {Settings} from "./components/settings/Settings";
 
 function App(): JSX.Element {
     return (
@@ -16,6 +19,12 @@ function App(): JSX.Element {
                 <div className='app-wrapper-content'>
                     <Route path={'/dialogs'} component={Dialogs}/>
                     <Route path={'/profile'} component={Profile}/>
+                    <Route path={'/news'} component={News}/>
+                    <Route path={'/music'} component={Music}/>
+                    <Route path={'/settings'} component={Settings}/>
+                    {/*<Settings/>*/}
+                    {/*<Music/>*/}
+                    {/*<News/>*/}
                     {/*<Dialogs/>*/}
                     {/*<Profile/>*/}
                 </div>
