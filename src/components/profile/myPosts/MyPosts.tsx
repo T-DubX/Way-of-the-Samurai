@@ -1,21 +1,15 @@
-import React from 'react';
+import React, {FC} from 'react';
 import s from './MyPosts.module.css'
-import {Post} from "./posts/Post";
+import {Post, PostsType} from "./posts/Post";
 
-type PostsType = {
-    id: string
-    message: string
-    likesCount: number
+type ProfilePropsType = {
+    posts: PostsType[]
 }
 
-export const MyPosts = () => {
+export const MyPosts: FC<ProfilePropsType> = (props) => {
 
-    const posts: PostsType[] = [
-        {id: '1', message: 'It`s our new program! Hey!', likesCount: 12},
-        {id: '2', message: 'It`s my first posts', likesCount: 11},
-    ]
-
-    const postsElements: JSX.Element[] = posts.map(post => <Post message={post.message} likeCount={post.likesCount}/>)
+    const postsElements: JSX.Element[] = props.posts.map(post => <Post message={post.message}
+                                                                       likeCount={post.likesCount}/>)
 
     return (
         <div className={s.wrapperPosts}>

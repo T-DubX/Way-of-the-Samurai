@@ -10,6 +10,7 @@ a {
 .app-wrapper {
     display: grid;
     max-width: 1200px;
+    min-height: 85vh;
     margin: 0 auto;
     padding: 0 15px;
 
