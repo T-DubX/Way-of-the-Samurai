@@ -1,7 +1,14 @@
+.wrapperItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
 .item {
     display: flex;
     gap: 20px;
-    margin-bottom: 30px;
+    align-items: center;
 }
 
 .img {
@@ -13,4 +20,8 @@
 
 .text {
     margin: 0;
+}
+
+.likeCount {
+    align-self: flex-end;
 }
