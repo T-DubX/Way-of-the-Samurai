@@ -23,10 +23,14 @@
 
 /*post*/
 
+.wrapperPosts {
+    margin-bottom: 40px;
+}
+
 .posts {
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 30px;
 }
 
 
