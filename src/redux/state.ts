@@ -12,9 +12,12 @@ export type DialogsPage = {
 
 }
 
+export type SidebarType = {}
+
 export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPage
+    sidebar: SidebarType
 }
 
 export const state: StateType = {
@@ -39,6 +42,7 @@ export const state: StateType = {
             {id: '5', name: 'Viktoria'},
             {id: '6', name: 'Ekaterina'},
         ],
-    }
+    },
+    sidebar: {}
 
 }

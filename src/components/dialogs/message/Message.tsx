@@ -12,7 +12,14 @@ type MessagesPropsType = {
 
 export const Message: FC<MessagesPropsType> = (props) => {
     return (
-        <div className={s.message}>{props.message}</div>
+        <div className={s.wrapper}>
+            <div className={s.userAvatar}></div>
+            <div className={s.messageWrapper}>
+                <div className={s.message}>{props.message}</div>
+            </div>
+
+        </div>
+
     );
 };
 

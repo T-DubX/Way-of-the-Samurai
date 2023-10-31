@@ -3,6 +3,7 @@ import s from './Dialogs.module.css'
 import {DialogItem} from "./dialogItem/DialogItem";
 import {Message} from "./message/Message";
 import {DialogsPage} from "../../redux/state";
+import {SendMessage} from "./message/sendMessage/SendMessage";
 
 
 type DialogsPropsType = {
@@ -23,6 +24,7 @@ export const Dialogs: FC<DialogsPropsType> = (props) => {
             </div>
             <div className={s.messages}>
                 {messagesElements}
+                <SendMessage/>
             </div>
         </div>
     );
