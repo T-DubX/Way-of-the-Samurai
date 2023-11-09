@@ -4,6 +4,7 @@ import {Post, PostsType} from "./posts/Post";
 
 type ProfilePropsType = {
     posts: PostsType[]
+    addPost: (message: string) => void
 }
 
 export const MyPosts: FC<ProfilePropsType> = (props) => {
@@ -14,7 +15,9 @@ export const MyPosts: FC<ProfilePropsType> = (props) => {
     const newPostElement = React.createRef<HTMLTextAreaElement>()
 
     const onAddPost = () => {
-        const text = newPostElement.current?.value
+        if (newPostElement.current) {
+            props.addPost(newPostElement.current.value)
+        }
     }
 
     return (
