@@ -1,7 +1,6 @@
 import {PostsType} from "../components/profile/myPosts/posts/Post";
 import {DialogsDataType} from "../components/dialogs/dialogItem/DialogItem";
 import {MessageDataType} from "../components/dialogs/message/Message";
-import {rerenderEntireTree} from "../render";
 
 export type ProfilePageType = {
     posts: PostsType[]
@@ -22,45 +21,63 @@ export type StateType = {
     sidebar: SidebarType
 }
 
-export const state: StateType = {
-    profilePage: {
-        posts: [
-            {id: '1', message: 'It`s our new program! Hey!', likesCount: 12},
-            {id: '2', message: 'It`s my first posts', likesCount: 11},
-        ],
-        newPostText: ''
-    },
-    dialogsPage: {
-        messages: [
-            {id: '1', message: 'Hello world'},
-            {id: '2', message: 'I am from Belarus'},
-            {id: '3', message: 'How are you?'},
-        ],
-        dialogs: [
-            {id: '1', name: 'Anton'},
-            {id: '2', name: 'Alex'},
-            {id: '3', name: 'Valera'},
-            {id: '4', name: 'Pasha'},
-            {id: '5', name: 'Viktoria'},
-            {id: '6', name: 'Ekaterina'},
-        ],
-    },
-    sidebar: {}
-
+export type StoreType = {
+    _state: StateType
+    updateNewPostText: (newText: string) => void
+    addPost: () => void
+    _callSubscriber: () => void
+    subscribe: (observer: () => void) => void
+    getState: () => StateType
 }
 
-export const addPost = () => {
-    const newPost: PostsType = {
-        id: '5',
-        message: state.profilePage.newPostText,
-        likesCount: 0
+export const store: StoreType = {
+    _state: {
+        profilePage: {
+            posts: [
+                {id: '1', message: 'It`s our new program! Hey!', likesCount: 12},
+                {id: '2', message: 'It`s my first posts', likesCount: 11},
+            ],
+            newPostText: ''
+        },
+        dialogsPage: {
+            messages: [
+                {id: '1', message: 'Hello world'},
+                {id: '2', message: 'I am from Belarus'},
+                {id: '3', message: 'How are you?'},
+            ],
+            dialogs: [
+                {id: '1', name: 'Anton'},
+                {id: '2', name: 'Alex'},
+                {id: '3', name: 'Valera'},
+                {id: '4', name: 'Pasha'},
+                {id: '5', name: 'Viktoria'},
+                {id: '6', name: 'Ekaterina'},
+            ],
+        },
+        sidebar: {}
+    },
+    updateNewPostText(newText: string) {
+        this._state.profilePage.newPostText = newText
+        this._callSubscriber()
+    },
+    addPost() {
+        const newPost = {
+            id: '5',
+            message: this._state.profilePage.newPostText,
+            likesCount: 0
+        }
+
+        this._state.profilePage.posts.push(newPost)
+        this._state.profilePage.newPostText = ''
+        this._callSubscriber()
+    },
+    _callSubscriber() {
+        console.log('state changed')
+    },
+    subscribe(observer) {
+        this._callSubscriber = observer
+    },
+    getState() {
+        return this._state
     }
-
-    state.profilePage.posts.push(newPost)
-    rerenderEntireTree(state)
-}
-
-export const updateNewPostText = (newText: string) => {
-    state.profilePage.newPostText = newText
-    rerenderEntireTree(state)
 }
