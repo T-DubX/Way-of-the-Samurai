@@ -2,20 +2,24 @@ import React, {FC} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./dialogItem/DialogItem";
 import {Message} from "./message/Message";
-import {DialogsPage} from "../../redux/state";
+import {StoreType} from "../../redux/state";
 import {SendMessage} from "./message/sendMessage/SendMessage";
 
 
 type DialogsPropsType = {
-    state: DialogsPage
+    store: StoreType
 }
 
 export const Dialogs: FC<DialogsPropsType> = (props) => {
+    let state = props.store.getState().dialogsPage
 
-    const dialogsElements: JSX.Element[] = props.state.dialogs.map(dialog => <DialogItem id={dialog.id}
-                                                                                         name={dialog.name}/>)
+    const dialogsElements: JSX.Element[] = state.dialogs.map(dialog => <DialogItem id={dialog.id}
+                                                                                   name={dialog.name}/>)
 
-    const messagesElements: JSX.Element[] = props.state.messages.map(message => <Message message={message.message}/>)
+    const messagesElements: JSX.Element[] = state.messages.map(message => <Message
+        key={message.id}
+        message={message.message}
+    />)
 
     return (
         <div className={s.dialogs}>
@@ -24,7 +28,10 @@ export const Dialogs: FC<DialogsPropsType> = (props) => {
             </div>
             <div className={s.messages}>
                 {messagesElements}
-                <SendMessage/>
+                <SendMessage
+                    store={props.store}
+                    newMessageText={state.newMessageText}
+                />
             </div>
         </div>
     );
