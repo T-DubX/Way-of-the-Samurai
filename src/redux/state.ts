@@ -1,7 +1,13 @@
 import {PostsType} from "../components/profile/myPosts/posts/Post";
 import {DialogsDataType} from "../components/dialogs/dialogItem/DialogItem";
 import {MessageDataType} from "../components/dialogs/message/Message";
-import {timingSafeEqual} from "crypto";
+import {AddPostActionType, profileReducer, UpdateNewPostTextActionType} from "./profile-reducer";
+import {
+    AddMessageActionType,
+    dialogsReducer,
+    UpdateNewMessageBodyActionType
+} from "./dialogs-reducer";
+import {sidebarReducer} from "./sidebar-reducer";
 
 export type ProfilePageType = {
     posts: PostsType[]
@@ -25,45 +31,16 @@ export type StateType = {
 export type StoreType = {
     _state: StateType
     _callSubscriber: () => void
-    _addPost: () => void
-    _updateNewPostText: (newText: string) => void
-    _updateNewMessageBody: (newMessage: string) => void
-    _addMessage: () => void
     subscribe: (observer: () => void) => void
     getState: () => StateType
     dispatch: (action: ActionType) => void
 }
 
-export type ActionType = AddPostActionType
+export type ActionType =
+    AddPostActionType
+    | AddMessageActionType
     | UpdateNewPostTextActionType
     | UpdateNewMessageBodyActionType
-    | AddMessageActionType
-
-type AddPostActionType = ReturnType<typeof addPostAC>
-type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
-type UpdateNewMessageBodyActionType = ReturnType<typeof updateNewMessageBodyAC>
-type AddMessageActionType = ReturnType<typeof addMessageAC>
-
-export const addPostAC = () => {
-    return {type: "ADD-POST"} as const
-}
-export const updateNewPostTextAC = (text: string) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        text
-    } as const
-}
-export const updateNewMessageBodyAC = (message: string) => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-BODY',
-        message
-    } as const
-}
-export const addMessageAC = () => {
-    return {
-        type: 'SEND-MESSAGE'
-    } as const
-}
 
 export const store: StoreType = {
     _state: {
@@ -95,48 +72,12 @@ export const store: StoreType = {
     _callSubscriber() {
         console.log('state changed')
     },
-    _addPost() {
-        const newPost = {
-            id: '5',
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
-        }
-
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber()
-    },
-    _updateNewPostText(newText) {
-        this._state.profilePage.newPostText = newText
-        this._callSubscriber()
-    },
-    _updateNewMessageBody(newMessage) {
-        this._state.dialogsPage.newMessageText = newMessage
-        this._callSubscriber()
-    },
-    _addMessage() {
-        const body = this._state.dialogsPage.newMessageText
-        this._state.dialogsPage.newMessageText = '';
-
-        const newMessage = {
-            id: '8',
-            message: body
-        }
-
-
-        this._state.dialogsPage.messages.push(newMessage)
-        this._callSubscriber()
-    },
     dispatch(action) {
-        if (action.type === "ADD-POST") {
-            this._addPost()
-        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
-            this._updateNewPostText(action.text)
-        } else if (action.type === 'SEND-MESSAGE') {
-            this._addMessage()
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
-            this._updateNewMessageBody(action.message)
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+
+        this._callSubscriber()
     },
     subscribe(observer) {
         this._callSubscriber = observer
