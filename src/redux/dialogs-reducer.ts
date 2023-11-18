@@ -1,17 +1,18 @@
-import {ActionType} from "./state";
-import {MessageDataType} from "../components/dialogs/message/Message";
-import {DialogsDataType} from "../components/dialogs/dialogItem/DialogItem";
+import {ActionType} from "./store";
+import {DialogsPageType} from "../components/dialogs/Dialogs";
 
 export type UpdateNewMessageBodyActionType = ReturnType<typeof updateNewMessageBodyAC>
 export type AddMessageActionType = ReturnType<typeof addMessageAC>
 
-export type DialogsPage = {
-    messages: MessageDataType[]
-    dialogs: DialogsDataType[]
-    newMessageText: string
-}
+// export type DialogsPage = {
+//     messages: MessageDataType[]
+//     dialogs: DialogsDataType[]
+//     newMessageText: string
+// }
 
-const initialState: DialogsPage = {
+type InitialStateType = DialogsPageType
+
+const initialState: InitialStateType = {
     messages: [
         {id: '1', message: 'Hello world'},
         {id: '2', message: 'I am from Belarus'},
@@ -28,17 +29,19 @@ const initialState: DialogsPage = {
     newMessageText: '',
 }
 
-export const dialogsReducer = (state = initialState, action: ActionType): DialogsPage => {
+export const dialogsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "SEND-MESSAGE": {
-            const body = state.newMessageText
-            state.newMessageText = ''
-            state.messages.push({id: '6', message: body})
-            return state
+            const copyState = {...state}
+            const body = copyState.newMessageText
+            copyState.newMessageText = ''
+            copyState.messages.push({id: '6', message: body})
+            return copyState
         }
         case "UPDATE-NEW-MESSAGE-BODY": {
-            state.newMessageText = action.message
-            return state
+            const copyState = {...state}
+            copyState.newMessageText = action.message
+            return copyState
         }
         default :
             return state

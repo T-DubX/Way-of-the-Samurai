@@ -1,15 +1,9 @@
 import React, {FC} from 'react';
 import s from './MyPosts.module.css'
-import {Post, PostsType} from "./posts/Post";
+import {Post} from "./posts/Post";
+import {MyPostsPropsType} from "./MyPostsContainer";
 
-type ProfilePropsType = {
-    posts: PostsType[]
-    newPostText: string
-    addPost: () => void
-    updateNewPostText: (text: string) => void
-}
-
-export const MyPosts: FC<ProfilePropsType> = (props) => {
+export const MyPosts: FC<MyPostsPropsType> = (props) => {
 
     const postsElements: JSX.Element[] = props.posts.map(post => <Post
         message={post.message}

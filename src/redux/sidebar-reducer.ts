@@ -1,4 +1,4 @@
-import {SidebarType} from "./state";
+export type SidebarType = {}
 
 const initialState: SidebarType = {}
 

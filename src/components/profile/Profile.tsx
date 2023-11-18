@@ -1,10 +1,12 @@
 import React, {FC} from 'react';
 import {ProfileInfo} from "./profileInfo/ProfileInfo";
 import {MyPostsContainer} from "./myPosts/MyPostsContainer";
+import {PostsType} from "./myPosts/posts/Post";
 
-// type ProfilePropsType = {
-//     store: StoreType
-// }
+export type ProfilePageType = {
+    posts: PostsType[]
+    newPostText: string
+}
 
 export const Profile: FC = () => {
     return (

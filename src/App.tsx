@@ -7,14 +7,13 @@ import {Route} from "react-router-dom";
 import {News} from "./components/news/News";
 import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
-import {ActionType, StateType} from "./redux/state";
 import {DialogsContainer} from "./components/dialogs/DialogsContainer";
-
-export type StoreType = {
-    subscribe: (observer: () => void) => void
-    getState: () => StateType
-    dispatch: (action: ActionType) => void
-}
+//
+// export type StoreType = {
+//     subscribe: (observer: () => void) => void
+//     getState: () => StateType
+//     dispatch: (action: ActionType) => void
+// }
 //
 // type AppPropsType = {
 //     state: StateType
@@ -31,10 +30,8 @@ function App(): JSX.Element {
                 {/*<Route path={'/'} />*/}
                 <Route path={'/dialogs'}
                        render={() => <DialogsContainer
-                           // store={props.store}
                        />}/>
                 <Route path={'/profile'} render={() => <Profile
-                    // store={props.store}
                 />}/>
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>

@@ -1,27 +1,27 @@
-import React, {FC} from 'react';
-import {Dialogs} from "./Dialogs";
-import {StoreContext} from "../../StoreContext";
+import {Dialogs, DialogsPageType} from "./Dialogs";
+import {connect} from "react-redux";
+import {AppStateType} from "../../redux/store";
+import {AnyAction, Dispatch} from "redux";
 
+type MapStateToProps = {
+    dialogsPage: DialogsPageType
+}
 
-// type DialogsContainerPropsType = {
-//     store: StoreType
-// }
+type MapDispatchToProps = {
+    dispatch: Dispatch<AnyAction>
+}
 
-export const DialogsContainer: FC = () => {
+const mapStateToProps = (state: AppStateType): MapStateToProps => {
+    return {
+        dialogsPage: state.dialogsPage,
+    }
+}
 
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) => (
-                    <Dialogs
-                        dialogsPage={store.getState().dialogsPage}
-                        dispatch={store.dispatch}
-                    />
-                )
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
+    return {
+        dispatch: dispatch
+    }
+}
 
-            }
-        </StoreContext.Consumer>
-
-    );
-};
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
 
