@@ -8,7 +8,13 @@ import {Route} from "react-router-dom";
 import {News} from "./components/news/News";
 import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
-import {ActionType, StateType, StoreType} from "./redux/state";
+import {ActionType, StateType} from "./redux/state";
+
+export type StoreType = {
+    subscribe: (observer: () => void) => void
+    getState: () => StateType
+    dispatch: (action: ActionType) => void
+}
 
 type AppPropsType = {
     state: StateType
@@ -22,6 +28,7 @@ function App(props: AppPropsType): JSX.Element {
             <Header/>
             <Navbar/>
             <div className='app-wrapper-content'>
+                {/*<Route path={'/'} />*/}
                 <Route path={'/dialogs'}
                        render={() => <Dialogs
                            store={props.store}

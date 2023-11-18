@@ -28,7 +28,7 @@ export type StateType = {
     sidebar: SidebarType
 }
 
-export type StoreType = {
+type StoreType = {
     _state: StateType
     _callSubscriber: () => void
     subscribe: (observer: () => void) => void
