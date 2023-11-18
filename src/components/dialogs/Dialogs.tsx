@@ -3,7 +3,6 @@ import s from './Dialogs.module.css'
 import {DialogItem} from "./dialogItem/DialogItem";
 import {Message} from "./message/Message";
 import {SendMessage} from "./message/sendMessage/SendMessage";
-import {StoreType} from "../../App";
 import {ActionType, DialogsPage} from "../../redux/state";
 
 

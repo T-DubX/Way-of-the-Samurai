@@ -1,24 +1,27 @@
 import React, {FC} from 'react';
-import s from './Dialogs.module.css'
-import {DialogItem} from "./dialogItem/DialogItem";
-import {Message} from "./message/Message";
-import {SendMessage} from "./message/sendMessage/SendMessage";
-import {StoreType} from "../../App";
 import {Dialogs} from "./Dialogs";
+import {StoreContext} from "../../StoreContext";
 
 
-type DialogsContainerPropsType = {
-    store: StoreType
-}
+// type DialogsContainerPropsType = {
+//     store: StoreType
+// }
 
-export const DialogsContainer: FC<DialogsContainerPropsType> = (props) => {
-    let state = props.store.getState().dialogsPage
+export const DialogsContainer: FC = () => {
 
     return (
-        <Dialogs
-            dialogsPage={state}
-            dispatch={props.store.dispatch}
-        />
+        <StoreContext.Consumer>
+            {
+                (store) => (
+                    <Dialogs
+                        dialogsPage={store.getState().dialogsPage}
+                        dispatch={store.dispatch}
+                    />
+                )
+
+            }
+        </StoreContext.Consumer>
+
     );
 };
 

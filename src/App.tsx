@@ -3,7 +3,6 @@ import './App.css';
 import {Header} from "./components/header/Header";
 import {Navbar} from "./components/navbar/Navbar";
 import {Profile} from "./components/profile/Profile";
-import {Dialogs} from "./components/dialogs/Dialogs";
 import {Route} from "react-router-dom";
 import {News} from "./components/news/News";
 import {Music} from "./components/music/Music";
@@ -16,14 +15,14 @@ export type StoreType = {
     getState: () => StateType
     dispatch: (action: ActionType) => void
 }
+//
+// type AppPropsType = {
+//     state: StateType
+//     dispatch: (action: ActionType) => void
+//     store: StoreType
+// }
 
-type AppPropsType = {
-    state: StateType
-    dispatch: (action: ActionType) => void
-    store: StoreType
-}
-
-function App(props: AppPropsType): JSX.Element {
+function App(): JSX.Element {
     return (
         <div className='app-wrapper'>
             <Header/>
@@ -32,10 +31,10 @@ function App(props: AppPropsType): JSX.Element {
                 {/*<Route path={'/'} />*/}
                 <Route path={'/dialogs'}
                        render={() => <DialogsContainer
-                           store={props.store}
+                           // store={props.store}
                        />}/>
                 <Route path={'/profile'} render={() => <Profile
-                    store={props.store}
+                    // store={props.store}
                 />}/>
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>
