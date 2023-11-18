@@ -9,6 +9,7 @@ import {News} from "./components/news/News";
 import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
 import {ActionType, StateType} from "./redux/state";
+import {DialogsContainer} from "./components/dialogs/DialogsContainer";
 
 export type StoreType = {
     subscribe: (observer: () => void) => void
@@ -30,12 +31,11 @@ function App(props: AppPropsType): JSX.Element {
             <div className='app-wrapper-content'>
                 {/*<Route path={'/'} />*/}
                 <Route path={'/dialogs'}
-                       render={() => <Dialogs
+                       render={() => <DialogsContainer
                            store={props.store}
                        />}/>
                 <Route path={'/profile'} render={() => <Profile
-                    state={props.state.profilePage}
-                    dispatch={props.dispatch}
+                    store={props.store}
                 />}/>
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>

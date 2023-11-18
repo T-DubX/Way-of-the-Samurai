@@ -2,23 +2,24 @@ import React, {ChangeEvent, FC} from 'react';
 import s from './SendMessage.module.css'
 import {addMessageAC, updateNewMessageBodyAC} from "../../../../redux/dialogs-reducer";
 import {StoreType} from "../../../../App";
+import {ActionType} from "../../../../redux/state";
 
 
 type PropsType = {
     newMessageText: string
-    store: StoreType
+    dispatch: (action: ActionType) => void;
 }
 
 export const SendMessage: FC<PropsType> = (props) => {
 
     const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const message = e.target.value
-        props.store.dispatch(updateNewMessageBodyAC(message))
+        props.dispatch(updateNewMessageBodyAC(message))
     }
 
     const onSendMessageClick = () => {
-        props.store.dispatch(addMessageAC())
-        props.store.dispatch(updateNewMessageBodyAC(''))
+        props.dispatch(addMessageAC())
+        props.dispatch(updateNewMessageBodyAC(''))
     }
 
     return (
