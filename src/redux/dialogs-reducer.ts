@@ -1,23 +1,29 @@
-import {ActionType} from "./store";
 import {DialogsPageType} from "../components/dialogs/Dialogs";
 
 export type UpdateNewMessageBodyActionType = ReturnType<typeof updateNewMessageBodyAC>
 export type AddMessageActionType = ReturnType<typeof addMessageAC>
 
-// export type DialogsPage = {
-//     messages: MessageDataType[]
-//     dialogs: DialogsDataType[]
-//     newMessageText: string
-// }
+export type ActionType = UpdateNewMessageBodyActionType
+    | AddMessageActionType
 
-type InitialStateType = DialogsPageType
+type MessageType = {
+    id: string
+    message: string
+}
 
-const initialState: InitialStateType = {
+type DialogsType = {
+    id: string
+    name: string
+}
+
+type InitialStateType = typeof initialState
+
+const initialState = {
     messages: [
         {id: '1', message: 'Hello world'},
         {id: '2', message: 'I am from Belarus'},
         {id: '3', message: 'How are you?'},
-    ],
+    ] as MessageType[],
     dialogs: [
         {id: '1', name: 'Anton'},
         {id: '2', name: 'Alex'},
@@ -25,23 +31,26 @@ const initialState: InitialStateType = {
         {id: '4', name: 'Pasha'},
         {id: '5', name: 'Viktoria'},
         {id: '6', name: 'Ekaterina'},
-    ],
+    ] as DialogsType[],
     newMessageText: '',
 }
 
 export const dialogsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "SEND-MESSAGE": {
-            const copyState = {...state}
-            const body = copyState.newMessageText
-            copyState.newMessageText = ''
-            copyState.messages.push({id: '6', message: body})
-            return copyState
+            const body = state.newMessageText
+            return {
+                ...state,
+                messages: [...state.messages, {id: '6', message: body}],
+                newMessageText: ''
+            }
         }
         case "UPDATE-NEW-MESSAGE-BODY": {
-            const copyState = {...state}
-            copyState.newMessageText = action.message
-            return copyState
+            return {
+                ...state,
+                newMessageText: action.message
+            }
+
         }
         default :
             return state

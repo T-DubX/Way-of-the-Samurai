@@ -1,7 +1,6 @@
 import React, {ChangeEvent, FC} from 'react';
 import s from './SendMessage.module.css'
-import {addMessageAC, updateNewMessageBodyAC} from "../../../../redux/dialogs-reducer";
-import {ActionType} from "../../../../redux/store";
+import {ActionType, addMessageAC, updateNewMessageBodyAC} from "../../../../redux/dialogs-reducer";
 
 
 type PropsType = {

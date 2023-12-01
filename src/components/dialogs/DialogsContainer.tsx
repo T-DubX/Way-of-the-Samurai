@@ -1,15 +1,18 @@
 import {Dialogs, DialogsPageType} from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/store";
-import {AnyAction, Dispatch} from "redux";
+import {Dispatch} from "redux";
+import {ActionType} from "../../redux/dialogs-reducer";
 
 type MapStateToProps = {
     dialogsPage: DialogsPageType
 }
 
 type MapDispatchToProps = {
-    dispatch: Dispatch<AnyAction>
+    dispatch: Dispatch<ActionType>
 }
+
+export type DialogsPropsType = MapDispatchToProps & MapStateToProps
 
 const mapStateToProps = (state: AppStateType): MapStateToProps => {
     return {

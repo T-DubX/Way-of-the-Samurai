@@ -3,7 +3,7 @@ import s from './Dialogs.module.css'
 import {DialogItem, DialogsDataType} from "./dialogItem/DialogItem";
 import {Message, MessageDataType} from "./message/Message";
 import {SendMessage} from "./message/sendMessage/SendMessage";
-import {ActionType} from "../../redux/store";
+import {DialogsPropsType} from "./DialogsContainer";
 
 
 export type DialogsPageType = {
@@ -11,16 +11,17 @@ export type DialogsPageType = {
     dialogs: DialogsDataType[]
     newMessageText: string
 }
-
-type DialogsPropsType = {
-    dialogsPage: DialogsPageType
-    dispatch: (action: ActionType) => void;
-}
+//
+// type DialogsPropsType = {
+//     dialogsPage: DialogsPageType
+//     dispatch: (action: ActionType) => void;
+// }
 
 export const Dialogs: FC<DialogsPropsType> = (props) => {
     let state = props.dialogsPage
 
-    const dialogsElements: JSX.Element[] = state.dialogs.map(dialog => <DialogItem id={dialog.id} name={dialog.name}/>)
+    const dialogsElements: JSX.Element[] = state.dialogs.map(dialog => <DialogItem key={dialog.id} id={dialog.id}
+                                                                                   name={dialog.name}/>)
 
     const messagesElements: JSX.Element[] = state.messages.map(message => <Message
         key={message.id}
