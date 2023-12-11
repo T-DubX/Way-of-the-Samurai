@@ -4,12 +4,15 @@ type UserLocationType = {
 }
 
 export type UserType = {
-    id: number
-    photoUrl: string
+    name: string,
+    id: number,
+    uniqueUrlName: string | null,
+    photos: {
+        "small": string | undefined,
+        "large": string | undefined
+    },
+    status: null,
     followed: boolean
-    fullName: string
-    status: string
-    location: UserLocationType
 }
 
 export type InitialStateType = typeof initialState

@@ -1,73 +1,55 @@
-import React, {FC} from 'react';
-import {ActionType, followAC, setUsersAC, unfollowAC, UserType} from "../../redux/users-reducer";
-import {UsersPropsType} from "./UsersContainer";
+import React from "react";
+import userPhoto from "../../assets/images/user.png";
+import axios from "axios";
+import {UserType} from "../../redux/users-reducer";
 
-export const Users: FC<UsersPropsType> = (props) => {
+interface UsersProps {
+    usersPage: {
+        users: UserType[];
+    };
+    setUsers: (users: UserType[]) => void;
+    unfollow: (userId: number) => void;
+    follow: (userId: number) => void;
+}
 
-    props.usersPage.users.length === 0 && props.setUsers([
-        {
-            id: 1,
-            photoUrl: 'https://images.panda.org/assets/images/pages/welcome/orangutan_1600x1000_279157.jpg',
-            followed: false,
-            fullName: 'Anton',
-            status: 'I am a boss',
-            location: {city: 'Osipovichi', country: 'Belarus'}
-        },
-        {
-            id: 2,
-            photoUrl: 'https://images.panda.org/assets/images/pages/welcome/orangutan_1600x1000_279157.jpg',
-            followed: true,
-            fullName: 'Sasha',
-            status: 'I am a boss 2',
-            location: {city: 'Minsk', country: 'Belarus'}
-        },
-        {
-            id: 3,
-            photoUrl: 'https://images.panda.org/assets/images/pages/welcome/orangutan_1600x1000_279157.jpg',
-            followed: false,
-            fullName: 'Pasha',
-            status: 'I am a boss 3 ',
-            location: {city: 'Kiev', country: 'Ukraine'}
-        },
-        {
-            id: 4,
-            photoUrl: 'https://images.panda.org/assets/images/pages/welcome/orangutan_1600x1000_279157.jpg',
-            followed: true,
-            fullName: 'Sveta',
-            status: 'I am a boss 4',
-            location: {city: 'Osipovichi', country: 'Belarus'}
-        }
-    ])
+export class Users extends React.Component<UsersProps> {
+    constructor(props: any) {
+        super(props);
 
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(res => this.props.setUsers(res.data.items))
+    }
 
-    return (
-        <div>
-            {
-                props.usersPage.users.map(u => <div key={u.id}>
-                    <div style={{width: '100px'}}>
-                        <img style={{maxWidth: '100%'}} src={u.photoUrl} alt=""/>
-                    </div>
-                    <div>
-                        {u.followed
-                            ? <button onClick={() => props.unfollow(u.id)}>Unfollow</button>
-                            :
-                            <button onClick={() => props.follow(u.id)}>Follow</button>}
-                    </div>
-                    <div>
-                         <span>
-                        {u.fullName}
-                    </span>
+    render() {
+        return (
+            <div>
+                {
+                    this.props.usersPage.users.map(u => <div key={u.id}>
+                        <div style={{width: '100px'}}>
+                            <img style={{maxWidth: '100%'}} src={u.photos.small !== null ? u.photos.small : userPhoto}
+                                 alt=""/>
+                        </div>
+                        <div>
+                            {u.followed
+                                ? <button onClick={() => this.props.unfollow(u.id)}>Unfollow</button>
+                                :
+                                <button onClick={() => this.props.follow(u.id)}>Follow</button>}
+                        </div>
+                        <div>
                         <span>
+                        {u.name}
+                    </span>
+                            <span>
                         {u.status}
                     </span>
-                    </div>
-                    <div>
-                        <span>{u.location.country}</span>
-                        <span>{u.location.city}</span>
-                    </div>
-                </div>)
-            }
-        </div>
-    );
-};
-
+                        </div>
+                        {/*<div>*/}
+                        {/*    <span>{u.location.country}</span>*/}
+                        {/*    <span>{u.location.city}</span>*/}
+                        {/*</div>*/}
+                    </div>)
+                }
+            </div>
+        );
+    }
+}
