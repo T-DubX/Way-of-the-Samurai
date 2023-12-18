@@ -11,7 +11,6 @@ import {
     UserType
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/store";
-import {Dispatch} from "redux";
 import axios from "axios";
 import Users from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
@@ -64,7 +63,6 @@ export class UsersAPIComponent extends React.Component<UsersAPIComponentProps> {
         }>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.usersPage.pageSize}`)
             .then(res => {
                 this.props.toggleIsFetching(false)
-                console.log(res.data)
                 this.props.setUsers(res.data.items)
             })
     }
