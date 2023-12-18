@@ -9,6 +9,7 @@ import {Settings} from "./components/settings/Settings";
 import {DialogsContainer} from "./components/dialogs/DialogsContainer";
 import {UsersContainer} from "./components/users/UsersContainer";
 import {ProfileContainer} from "./components/profile/ProfileContainer";
+import {HeaderContainer} from "./components/header/HeaderContainer";
 //
 // export type StoreType = {
 //     subscribe: (observer: () => void) => void
@@ -25,10 +26,9 @@ import {ProfileContainer} from "./components/profile/ProfileContainer";
 function App(): JSX.Element {
     return (
         <div className='app-wrapper'>
-            <Header/>
+            <HeaderContainer/>
             <Navbar/>
             <div className='app-wrapper-content'>
-                {/*<Route path={'/'} />*/}
                 <Route path={'/dialogs'}
                        render={() => <DialogsContainer
                        />}/>
@@ -38,11 +38,6 @@ function App(): JSX.Element {
                 <Route path={'/music'} render={() => <Music/>}/>
                 <Route path={'/settings'} render={() => <Settings/>}/>
                 <Route path={'/users'} render={() => <UsersContainer/>}/>
-                {/*<Settings/>*/}
-                {/*<Music/>*/}
-                {/*<News/>*/}
-                {/*<Dialogs/>*/}
-                {/*<Profile/>*/}
             </div>
         </div>
     );
