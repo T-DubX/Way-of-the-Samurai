@@ -8,10 +8,10 @@ export type UserType = {
     id: number,
     uniqueUrlName: string | null,
     photos: {
-        "small": string | undefined,
-        "large": string | undefined
+        "small": string | null,
+        "large": string | null
     },
-    status: null,
+    status: string | null,
     followed: boolean
 }
 
