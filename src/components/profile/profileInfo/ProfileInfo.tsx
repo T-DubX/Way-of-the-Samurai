@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import s from "./ProdileInfo.module.css";
 import mainImg from "../../../assets/images/2219350.jpg";
-import avatar from "../../../assets/images/avatar.jpg";
+import userPhoto from "../../../assets/images/user.png";
 import {ProfileUser} from "../ProfileContainer";
 import {Preloader} from "../../common/preloader/Preloader";
 
@@ -22,7 +22,11 @@ export const ProfileInfo: FC<PropsType> = ({profile}) => {
 
             <div className={s.profileInfo}>
                 <div className={s.wrapperImg}>
-                    <img src={profile.photos.large} alt="profile avatar"/>
+                    {profile.photos.large ?
+                        <img src={profile.photos.large} alt="profile avatar"/>
+                        :
+                        <img src={userPhoto} alt="profile avatar"/>
+                    }
                 </div>
 
                 <div className={s.description}>

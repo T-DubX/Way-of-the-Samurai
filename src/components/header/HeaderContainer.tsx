@@ -15,11 +15,14 @@ class HeaderAPIContainer extends React.Component<HeaderAPIContainerProps> {
             withCredentials: true
         })
             .then(res => {
-                console.log(res)
                 if (res.data.resultCode === 0) {
                     const {id, login, email} = res.data.data
                     this.props.setAuthUserData(id, email, login)
                 }
+                return axios.get(`https://social-network.samuraijs.com/api/1.0//profile/${res.data.data.id}`)
+            })
+            .then(user => {
+                console.log(user)
             })
     }
 

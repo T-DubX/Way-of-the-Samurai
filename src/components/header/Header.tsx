@@ -17,7 +17,6 @@ export const Header: FC<PropsType> = ({isAuth, login}) => {
                 {isAuth ? login : <NavLink to={'/login'}>
                     Login
                 </NavLink>}
-
             </div>
         </header>
     );
