@@ -4,6 +4,7 @@ import {DialogItem, DialogsDataType} from "./dialogItem/DialogItem";
 import {Message, MessageDataType} from "./message/Message";
 import {SendMessage} from "./message/sendMessage/SendMessage";
 import {DialogsPropsType} from "./DialogsContainer";
+import {Redirect} from "react-router-dom";
 
 
 export type DialogsPageType = {
@@ -11,11 +12,7 @@ export type DialogsPageType = {
     dialogs: DialogsDataType[]
     newMessageText: string
 }
-//
-// type DialogsPropsType = {
-//     dialogsPage: DialogsPageType
-//     dispatch: (action: ActionType) => void;
-// }
+
 
 export const Dialogs: FC<DialogsPropsType> = (props) => {
     let state = props.dialogsPage
@@ -27,6 +24,8 @@ export const Dialogs: FC<DialogsPropsType> = (props) => {
         key={message.id}
         message={message.message}
     />)
+
+    if (!props.isAuth) return <Redirect to={'/login'}/>
 
     return (
         <div className={s.dialogs}>
