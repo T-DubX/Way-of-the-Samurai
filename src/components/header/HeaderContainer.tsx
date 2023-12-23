@@ -1,29 +1,17 @@
-import React, {ReactNode} from 'react';
+import React from 'react';
 import {connect} from "react-redux";
-import axios from "axios";
 import {AppStateType} from "../../redux/store";
-import {setAuthUserData} from "../../redux/auth-reducer";
+import {getAuthUserData, setAuthUserData} from "../../redux/auth-reducer";
 import {Header} from "./Header";
 
 type HeaderAPIContainerProps = {
     setAuthUserData: (userId: number, email: string, login: string) => void
+    getAuthUserData: () => void
 }
 
 class HeaderAPIContainer extends React.Component<HeaderAPIContainerProps> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
-        })
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    const {id, login, email} = res.data.data
-                    this.props.setAuthUserData(id, email, login)
-                }
-                return axios.get(`https://social-network.samuraijs.com/api/1.0//profile/${res.data.data.id}`)
-            })
-            .then(user => {
-                console.log(user)
-            })
+        this.props.getAuthUserData()
     }
 
     render() {
@@ -43,4 +31,4 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-export const HeaderContainer = connect(mapStateToProps, {setAuthUserData})(HeaderAPIContainer)
+export const HeaderContainer = connect(mapStateToProps, {setAuthUserData, getAuthUserData})(HeaderAPIContainer)

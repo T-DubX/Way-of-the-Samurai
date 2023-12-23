@@ -1,5 +1,7 @@
 import {ProfilePageType} from "../components/profile/Profile";
 import {ProfileUser} from "../components/profile/ProfileContainer";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
 export type AddPostActionType = ReturnType<typeof addPostAC>
@@ -64,4 +66,16 @@ export const updateNewPostTextAC = (text: string) => {
 }
 export const setUserProfile = (profile: ProfileUser) => {
     return {type: 'SET-USER-PROFILE', profile} as const
+}
+
+
+//THUNK
+
+export const getUserProfile = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        usersAPI.getProfile(userId)
+            .then(data => {
+                dispatch(setUserProfile(data))
+            })
+    }
 }

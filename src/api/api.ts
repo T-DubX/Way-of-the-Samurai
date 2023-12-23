@@ -4,7 +4,7 @@ import {ProfileUser} from "../components/profile/ProfileContainer";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0',
-    withCredentials: true
+    withCredentials: true,
 })
 
 export type UsersResponseType<I = {}> = {
@@ -24,10 +24,7 @@ export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
         return instance.get<UsersResponseType<UserType[]>>(`/users?page=${currentPage}&count=${pageSize}`)
             .then(res => res.data)
-    }
-}
-
-export const followAPI = {
+    },
     follow(userId: number) {
         return instance.post<FollowResponseType>(`/follow/${userId}`)
             .then(res => res.data)
@@ -35,12 +32,16 @@ export const followAPI = {
     unfollow(userId: number) {
         return instance.delete<FollowResponseType>(`/follow/${userId}`)
             .then(res => res.data)
-    }
-}
-
-export const profileAPI = {
+    },
     getProfile(userId: number) {
         return instance.get<ProfileUser>(`/profile/${userId}`)
             .then(res => res.data)
+    },
+}
+export const authAPI = {
+    getMyProfile() {
+        return instance.get(`/auth/me`)
+
     }
 }
+
