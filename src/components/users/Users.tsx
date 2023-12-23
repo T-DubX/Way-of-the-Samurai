@@ -14,6 +14,8 @@ interface UsersType {
     unfollow: (userId: number) => void;
     follow: (userId: number) => void;
     onPageChanged: (page: number) => void;
+    followingInProgress: number[]
+    toggleFollowingProgress: (userId: number, isFetching: boolean) => void
 }
 
 const Users = (props: UsersType) => {
@@ -45,21 +47,25 @@ const Users = (props: UsersType) => {
                     </div>
                     <div>
                         {u.followed
-                            ? <button onClick={() => {
+                            ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                props.toggleFollowingProgress(u.id, true)
                                 followAPI.unfollow(u.id)
                                     .then(data => {
                                         if (data.resultCode === 0) {
                                             props.unfollow(u.id)
                                         }
+                                        props.toggleFollowingProgress(u.id, false)
                                     })
                             }}>Unfollow</button>
                             :
-                            <button onClick={() => {
+                            <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                props.toggleFollowingProgress(u.id, true)
                                 followAPI.follow(u.id)
                                     .then(data => {
                                         if (data.resultCode === 0) {
                                             props.follow(u.id)
                                         }
+                                        props.toggleFollowingProgress(u.id, false)
                                     })
                             }}>Follow</button>
                         }
