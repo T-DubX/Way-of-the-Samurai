@@ -7,31 +7,31 @@ import React from "react";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 type MapStateToProps = {
-  dialogsPage: DialogsPageType,
-  isAuth: boolean
+   dialogsPage: DialogsPageType,
+   isAuth: boolean
 }
 
 type MapDispatchToProps = {
-  dispatch: Dispatch<ActionType>
+   dispatch: Dispatch<ActionType>
 }
 
 export type DialogsPropsType = MapDispatchToProps & MapStateToProps
 
 const mapStateToProps = (state: AppStateType): MapStateToProps => {
-  return {
-    dialogsPage: state.dialogsPage,
-    isAuth: state.auth.isAuth
-  }
+   return {
+      dialogsPage: state.dialogsPage,
+      isAuth: state.auth.isAuth
+   }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
-  return {
-    dispatch: dispatch
-  }
+   return {
+      dispatch: dispatch
+   }
 }
 
 export default compose<React.ComponentType>(
-  withAuthRedirect,
-  connect(mapStateToProps, mapDispatchToProps)
+   withAuthRedirect,
+   connect(mapStateToProps, mapDispatchToProps)
 )(Dialogs)
 
