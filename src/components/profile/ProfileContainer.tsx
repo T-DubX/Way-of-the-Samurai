@@ -1,10 +1,9 @@
 import React from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getUserProfile, setUserProfile} from "../../redux/profile-reducer";
+import {getStatus, getUserProfile, setUserProfile, updateStatus} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 export type ProfileUser = {
@@ -37,6 +36,9 @@ type ProfileAPIContainerProps = {
    profile: ProfileUser | null
    setUserProfile: (profile: ProfileUser) => void
    getUserProfile: (userId: number) => void
+   getStatus: (userId: number) => void
+   status: string
+   updateStatus: (status: string) => void
 }
 
 type PropsType = RouteComponentProps<PathParamsType> & ProfileAPIContainerProps
@@ -44,31 +46,37 @@ type PropsType = RouteComponentProps<PathParamsType> & ProfileAPIContainerProps
 class ProfileContainer extends React.Component<PropsType> {
    componentDidMount() {
       let userId = this.props.match.params.userId
-      if (!userId) userId = '2'
+      if (!userId) userId = '30299'
       this.props.getUserProfile(Number(userId))
+      this.props.getStatus(Number(userId))
    }
 
    render() {
 
       return (
-         <Profile {...this.props} profile={this.props.profile}/>
+         <Profile {...this.props} profile={this.props.profile} status={this.props.status}
+                  updateStatus={this.props.updateStatus}/>
       )
    }
 }
 
 type MapStatePropsType = {
    profile: ProfileUser | null
+   status: string
 }
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
    return {
       profile: state.profilePage.profile,
+      status: state.profilePage.status
    }
 }
 
 export default compose<React.ComponentType>(
    connect(mapStateToProps, {
       setUserProfile,
-      getUserProfile
+      getUserProfile,
+      getStatus,
+      updateStatus
    }),
    withRouter,
    // withAuthRedirect
