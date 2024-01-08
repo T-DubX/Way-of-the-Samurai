@@ -1,11 +1,10 @@
 import {PostsType} from "../components/profile/myPosts/posts/Post";
 import {DialogsDataType} from "../components/dialogs/dialogItem/DialogItem";
 import {MessageDataType} from "../components/dialogs/message/Message";
-import {AddPostActionType, profileReducer, UpdateNewPostTextActionType} from "./profile-reducer";
+import {AddPostActionType, profileReducer,} from "./profile-reducer";
 import {
-    AddMessageActionType,
-    dialogsReducer,
-    UpdateNewMessageBodyActionType
+   AddMessageActionType,
+   dialogsReducer,
 } from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 

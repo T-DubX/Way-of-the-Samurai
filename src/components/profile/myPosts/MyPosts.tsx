@@ -2,51 +2,31 @@ import React, {FC} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./posts/Post";
 import {MyPostsPropsType} from "./MyPostsContainer";
+import {AddPostFormDataType, AddPostFromRedux} from "./addPost/AddPost";
+
 
 export const MyPosts: FC<MyPostsPropsType> = (props) => {
 
-    const postsElements: JSX.Element[] = props.posts.map(post => <Post
-        message={post.message}
-        likeCount={post.likesCount}
-    />)
+   const postsElements: JSX.Element[] = props.posts.map(post => <Post
+      key={post.id}
+      message={post.message}
+      likeCount={post.likesCount}
+   />)
 
-    const newPostElement = React.createRef<HTMLTextAreaElement>()
+   const addNewPost = (values: AddPostFormDataType) => {
+      props.addPost(values.newPostText)
+   }
 
-    const onAddPost = () => {
-        if (newPostElement.current) {
-            props.addPost()
-            props.updateNewPostText('')
-        }
-    }
-
-    const onPostChange = () => {
-        if (newPostElement.current) {
-            const text = newPostElement.current.value
-            props.updateNewPostText(text)
-        }
-    }
-
-    return (
-        <div className={s.wrapperPosts}>
-            <h3>My posts</h3>
-            <div className={s.newPost}>
-                <textarea ref={newPostElement}
-                          value={props.newPostText}
-                          onChange={onPostChange}
-                          placeholder='your news...'
-                ></textarea>
-                <button className={s.btn}
-                        onClick={onAddPost}
-                >Add post
-                </button>
-            </div>
-            <div className={s.posts}>
-                {
-                    postsElements
-                }
-            </div>
-
-        </div>
-    );
+   return (
+      <div className={s.wrapperPosts}>
+         <h3>My posts</h3>
+         <AddPostFromRedux onSubmit={addNewPost}/>
+         <div className={s.posts}>
+            {
+               postsElements
+            }
+         </div>
+      </div>
+   );
 };
 

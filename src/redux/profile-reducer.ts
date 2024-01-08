@@ -3,25 +3,23 @@ import {ProfileUser} from "../components/profile/ProfileContainer";
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
 
-export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
 export type AddPostActionType = ReturnType<typeof addPostAC>
 export type SetUserProfileActionType = ReturnType<typeof setUserProfile>
 export type SetStatusActionType = ReturnType<typeof setStatus>
 
-type ActionType = UpdateNewPostTextActionType
-   | AddPostActionType
+type ActionType =
+   AddPostActionType
    | SetUserProfileActionType
    | SetStatusActionType
 
 type InitialStateType = ProfilePageType
 
 
-const initialState: InitialStateType = {
+const initialState = {
    posts: [
       {id: '1', message: 'It`s our new program! Hey!', likesCount: 12},
       {id: '2', message: 'It`s my first posts', likesCount: 11},
    ],
-   newPostText: '',
    profile: null,
    status: '',
 }
@@ -31,20 +29,14 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
       case "ADD-POST": {
          const newPost = {
             id: '5',
-            message: state.newPostText,
+            message: action.newPostText,
             likesCount: 0
          }
 
          return {
             ...state,
-            posts: [...state.posts, newPost],
+            posts: [newPost, ...state.posts],
             newPostText: ''
-         }
-      }
-      case 'UPDATE-NEW-POST-TEXT': {
-         return {
-            ...state,
-            newPostText: action.newText
          }
       }
       case "SET-USER-PROFILE": {
@@ -64,14 +56,8 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
    }
 }
 
-export const addPostAC = () => {
-   return {type: "ADD-POST"} as const
-}
-export const updateNewPostTextAC = (text: string) => {
-   return {
-      type: 'UPDATE-NEW-POST-TEXT',
-      newText: text
-   } as const
+export const addPostAC = (newPostText: string) => {
+   return {type: "ADD-POST", newPostText} as const
 }
 export const setUserProfile = (profile: ProfileUser) => {
    return {type: 'SET-USER-PROFILE', profile} as const

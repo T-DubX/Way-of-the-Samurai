@@ -6,7 +6,7 @@ import {ProfileUser} from "./ProfileContainer";
 
 export type ProfilePageType = {
    posts: PostsType[]
-   newPostText: string
+   newPostText?: string
    profile: ProfileUser | null
    status: string
 }
