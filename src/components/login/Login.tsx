@@ -7,6 +7,7 @@ import {login} from "../../redux/auth-reducer";
 import {LoginParamsType} from "../../api/api";
 import {AppDispatch, AppStateType} from "../../redux/store";
 import {Redirect} from "react-router-dom";
+import styles from '../../components/common/formsControls/FormsControls.module.css'
 
 type FormDataType = WrappedFieldProps & {
    login: string
@@ -49,6 +50,12 @@ const LoginForm = (props: InjectedFormProps<FormDataType>) => {
                    name={'rememberMe'}
             /> remember me
          </div>
+         {props.error &&
+             <div className={styles.formSummaryError}>
+                {props.error}
+             </div>
+         }
+
          <div>
             <button>login</button>
          </div>
