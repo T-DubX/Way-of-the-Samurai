@@ -8,11 +8,6 @@
     margin-bottom: 50px;
 }
 
-.newPost textarea {
-    resize: none;
-    min-height: 50px;
-}
-
 .btn {
     align-self: flex-end;
     color: white;
