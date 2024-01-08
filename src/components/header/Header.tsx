@@ -4,20 +4,23 @@ import s from './Header.module.css'
 import {NavLink} from "react-router-dom";
 
 type PropsType = {
-    isAuth?: boolean
-    login?: string
+   isAuth?: boolean
+   login?: string
+   logout: () => void
 }
 
-export const Header: FC<PropsType> = ({isAuth, login}) => {
-    return (
-        <header className={s.header}>
-            <img src={logo} alt="logo"/>
+export const Header: FC<PropsType> = ({isAuth, login, logout}) => {
+   return (
+      <header className={s.header}>
+         <img src={logo} alt="logo"/>
 
-            <div className={s.loginBlock}>
-                {isAuth ? login : <NavLink to={'/login'}>
-                    Login
-                </NavLink>}
-            </div>
-        </header>
-    );
+         <div className={s.loginBlock}>
+            {isAuth ?
+               <div>{login} - <button onClick={logout}>Log out</button></div>
+               : <NavLink to={'/login'}>
+                  Login
+               </NavLink>}
+         </div>
+      </header>
+   );
 };

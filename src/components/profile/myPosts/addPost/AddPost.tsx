@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import s from "../MyPosts.module.css";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthCreator, requiredField} from "../../../../utils/validators/validadtors";
+import {maxLengthCreator, requiredField} from "../../../../utils/validators/validators";
 import {FormControl} from "../../../common/formsControls/FormsControls";
 
 

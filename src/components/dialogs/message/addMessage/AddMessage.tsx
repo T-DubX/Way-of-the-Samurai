@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import styles from './AddMessage.module.css'
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthCreator, requiredField} from "../../../../utils/validators/validadtors";
+import {maxLengthCreator, requiredField} from "../../../../utils/validators/validators";
 import {FormControl} from "../../../common/formsControls/FormsControls";
 // import styles from '../../../../components/common/formsControls/FormsControls'
 

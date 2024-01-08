@@ -13,14 +13,20 @@ export type UsersResponseType<I = {}> = {
    items: I
 }
 
-export type FollowResponseType<D = {}> = {
+export type ResponseType<D = {}> = {
    data: D
    fieldsErrors: string[]
    messages: string[]
    resultCode: number
 }
 
-export type StatusResponseType = Omit<FollowResponseType, 'fieldsErrors'>
+export type LoginParamsType = {
+   email: string
+   password: string
+   rememberMe: boolean
+}
+
+export type StatusResponseType = Omit<ResponseType, 'fieldsErrors'>
 
 export const usersAPI = {
    getUsers(currentPage: number, pageSize: number) {
@@ -28,11 +34,11 @@ export const usersAPI = {
          .then(res => res.data)
    },
    follow(userId: number) {
-      return instance.post<FollowResponseType>(`/follow/${userId}`)
+      return instance.post<ResponseType>(`/follow/${userId}`)
          .then(res => res.data)
    },
    unfollow(userId: number) {
-      return instance.delete<FollowResponseType>(`/follow/${userId}`)
+      return instance.delete<ResponseType>(`/follow/${userId}`)
          .then(res => res.data)
    },
 
@@ -51,8 +57,14 @@ export const profileAPI = {
 }
 export const authAPI = {
    getMyProfile() {
-      return instance.get(`/auth/me`)
+      return instance.get<ResponseType<{ id: number, email: string, login: string }>>(`/auth/me`)
 
+   },
+   login(params: LoginParamsType) {
+      return instance.post<ResponseType<{ userId: number }>>('/auth/login', params)
+   },
+   logout() {
+      return instance.delete<ResponseType>('/auth/login')
    }
 }
 
