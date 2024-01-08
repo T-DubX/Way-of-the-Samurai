@@ -44,7 +44,7 @@ export const setAuthUserData = (userId: number | null, email: string | null, log
 
 export const getAuthUserData = () => {
    return (dispatch: Dispatch) => {
-      authAPI.getMyProfile()
+      return authAPI.getMyProfile()
          .then(res => {
             if (res.data.resultCode === 0) {
                const {id, login, email} = res.data.data

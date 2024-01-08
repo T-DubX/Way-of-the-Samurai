@@ -6,7 +6,7 @@ import {usersReducer} from "./users-reducer";
 import {authReducer} from "./auth-reducer";
 import thunk, {ThunkDispatch} from "redux-thunk";
 import {reducer as formReducer} from "redux-form";
-import {useDispatch} from "react-redux";
+import {appReducer} from "./app-reducer";
 
 
 const rootReducer = combineReducers({
@@ -15,7 +15,8 @@ const rootReducer = combineReducers({
    sidebar: sidebarReducer,
    usersPage: usersReducer,
    auth: authReducer,
-   form: formReducer
+   form: formReducer,
+   app: appReducer
 })
 
 

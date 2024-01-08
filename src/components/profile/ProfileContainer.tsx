@@ -39,7 +39,7 @@ type ProfileAPIContainerProps = {
    getStatus: (userId: number) => void
    status: string
    updateStatus: (status: string) => void
-   authorizedUserId: number | null
+   authorizedUserId: number,
    isAuth: boolean
 }
 
@@ -47,19 +47,25 @@ type PropsType = RouteComponentProps<PathParamsType> & ProfileAPIContainerProps
 
 class ProfileContainer extends React.Component<PropsType> {
    componentDidMount() {
-      let userId = this.props.match.params.userId
+      let userId: number = Number(this.props.match.params.userId)
       if (!userId) {
-         userId = String(this.props.authorizedUserId)
+         userId = this.props.authorizedUserId
+         if (!userId) {
+            this.props.history.push('/login')
+         }
       }
-      this.props.getUserProfile(Number(userId))
-      this.props.getStatus(Number(userId))
+      this.props.getUserProfile(userId)
+      this.props.getStatus(userId)
    }
 
    render() {
 
       return (
-         <Profile {...this.props} profile={this.props.profile} status={this.props.status}
-                  updateStatus={this.props.updateStatus}/>
+         <Profile {...this.props}
+                  profile={this.props.profile}
+                  status={this.props.status}
+                  updateStatus={this.props.updateStatus}
+         />
       )
    }
 }
