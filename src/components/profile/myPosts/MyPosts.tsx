@@ -1,12 +1,12 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./posts/Post";
 import {MyPostsPropsType} from "./MyPostsContainer";
 import {AddPostFormDataType, AddPostFromRedux} from "./addPost/AddPost";
 
 
-export const MyPosts: FC<MyPostsPropsType> = (props) => {
-
+export const MyPosts: FC<MyPostsPropsType> = memo((props) => {
+   console.log('render')
    const postsElements: JSX.Element[] = props.posts.map(post => <Post
       key={post.id}
       message={post.message}
@@ -28,5 +28,5 @@ export const MyPosts: FC<MyPostsPropsType> = (props) => {
          </div>
       </div>
    );
-};
+});
 
