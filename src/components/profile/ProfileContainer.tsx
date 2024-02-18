@@ -1,10 +1,17 @@
 import React from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getStatus, getUserProfile, setUserProfile, updateStatus} from "../../redux/profile-reducer";
-import {AppStateType} from "../../redux/store";
+
+
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
+import {AppStateType} from '../../redux/store';
+import {
+   getStatus,
+   getUserProfile,
+   setUserProfile,
+   updateStatus,
+} from '../../redux/profile-reducer';
 
 export type ProfileUser = {
    aboutMe: string

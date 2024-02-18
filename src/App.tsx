@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import './App.css';
 import {Navbar} from "./components/navbar/Navbar";
-import {Route, withRouter} from "react-router-dom";
+import {Route} from "react-router-dom";
 import {News} from "./components/news/News";
 import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
-import DialogsContainer from "./components/dialogs/DialogsContainer";
+// import DialogsContainer from "./components/dialogs/DialogsContainer";
 import UsersContainer from "./components/users/UsersContainer";
-import ProfileContainer from "./components/profile/ProfileContainer";
+// import ProfileContainer from "./components/profile/ProfileContainer";
 import {HeaderContainer} from "./components/header/HeaderContainer";
 import {Login} from "./components/login/Login";
 import {connect} from "react-redux";
@@ -15,6 +15,10 @@ import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
 import {AppStateType} from "./redux/store";
 import {Preloader} from "./components/common/preloader/Preloader";
+import {withSuspense} from "../src/hoc/withSuspense";
+
+const DialogsContainer = React.lazy(() => import("./components/dialogs/DialogsContainer"))
+const ProfileContainer = React.lazy(() => import("./components/profile/ProfileContainer"))
 
 
 type AppPropsType = MapStateToProps & {
@@ -36,11 +40,13 @@ class App extends React.Component<AppPropsType, JSX.Element> {
             <HeaderContainer/>
             <Navbar/>
             <div className='app-wrapper-content'>
-               <Route path={'/dialogs'}
-                      render={() => <DialogsContainer
-                      />}/>
-               <Route path={'/profile/:userId?'} render={() => <ProfileContainer
-               />}/>
+               <Route
+                  path={'/dialogs'}
+                  render={withSuspense(DialogsContainer)
+                  }
+               />
+               <Route path={'/profile/:userId?'}
+                      render={withSuspense(ProfileContainer)}/>
                <Route path={'/news'} render={() => <News/>}/>
                <Route path={'/music'} render={() => <Music/>}/>
                <Route path={'/settings'} render={() => <Settings/>}/>
