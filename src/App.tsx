@@ -10,7 +10,6 @@ import UsersContainer from "./components/users/UsersContainer";
 import ProfileContainer from "./components/profile/ProfileContainer";
 import {HeaderContainer} from "./components/header/HeaderContainer";
 import {Login} from "./components/login/Login";
-import {getAuthUserData} from "./redux/auth-reducer";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
@@ -65,7 +64,7 @@ const mapStateToProps = (state: AppStateType): MapStateToProps => {
 }
 
 export default compose(
-   connect(mapStateToProps, {initializeApp}),
    // withRouter,
+   connect(mapStateToProps, {initializeApp}),
 )(App);
 

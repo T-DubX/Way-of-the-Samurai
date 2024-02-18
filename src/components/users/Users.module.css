@@ -2,19 +2,3 @@
     width: 100px;
     height: 100px;
 }
-
-.page {
-    cursor: pointer;
-    margin-right: 5px;
-}
-
-.selectedPage {
-    font-weight: 700;
-}
-
-.wrapperPagesPagination {
-    max-width: 350px;
-    overflow-y: hidden;
-    overflow-x: scroll;
-    margin-bottom: 20px;
-}

@@ -1,7 +1,7 @@
 import {ProfilePageType} from "../components/profile/Profile";
 import {ProfileUser} from "../components/profile/ProfileContainer";
 import {Dispatch} from "redux";
-import {profileAPI, usersAPI} from "../api/api";
+import {profileAPI} from "../api/api";
 
 export type AddPostActionType = ReturnType<typeof addPostAC>
 export type SetUserProfileActionType = ReturnType<typeof setUserProfile>
@@ -15,7 +15,6 @@ type ActionType =
    | DeletePostActionType
 
 export type InitialStateType = ProfilePageType
-
 
 const initialState = {
    posts: [
@@ -85,27 +84,23 @@ export const setStatus = (status: string) => {
 
 //THUNK
 
-export const getUserProfile = (userId: number) => {
-   return (dispatch: Dispatch) => {
-      profileAPI.getProfile(userId)
-         .then(data => {
-            dispatch(setUserProfile(data))
-         })
+export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
+   const res = await profileAPI.getProfile(userId)
+
+   if (res) {
+      dispatch(setUserProfile(res))
    }
 }
 
-export const getStatus = (userId: number) => (dispatch: Dispatch) => {
-   profileAPI.getStatus(userId)
-      .then(res => {
-         dispatch(setStatus(res.data))
-      })
+export const getStatus = (userId: number) => async (dispatch: Dispatch) => {
+   const res = await profileAPI.getStatus(userId)
+   dispatch(setStatus(res.data))
 }
 
-export const updateStatus = (status: string) => (dispatch: Dispatch) => {
-   profileAPI.updateStatus(status)
-      .then(res => {
-         if (res.data.resultCode === 0) {
-            dispatch(setStatus(status))
-         }
-      })
+export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
+   const res = await profileAPI.updateStatus(status)
+
+   if (res.data.resultCode === 0) {
+      dispatch(setStatus(res.status.toString()))
+   }
 }

@@ -4,17 +4,17 @@ export type AddMessageActionType = ReturnType<typeof addMessageAC>
 
 export type ActionType = AddMessageActionType
 
-type MessageType = {
+export type MessageType = {
    id: string
    message: string
 }
 
-type DialogsType = {
+export type DialogsType = {
    id: string
    name: string
 }
 
-type InitialStateType = typeof initialState
+export type InitialDialogsStateType = typeof initialState
 
 const initialState = {
    messages: [
@@ -33,7 +33,7 @@ const initialState = {
    newMessageText: '',
 }
 
-export const dialogsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+export const dialogsReducer = (state: InitialDialogsStateType = initialState, action: ActionType): InitialDialogsStateType => {
    switch (action.type) {
       case "SEND-MESSAGE": {
          const body = action.message

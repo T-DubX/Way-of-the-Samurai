@@ -1,6 +1,7 @@
-import {FC} from "react";
-import {WrappedFieldProps} from "redux-form";
+import React, {FC, ReactHTMLElement} from "react";
+import {Field, WrappedFieldProps} from "redux-form";
 import styles from './FormsControls.module.css'
+
 
 type FormControlProps = WrappedFieldProps & {
    tagName: 'textarea' | 'input'

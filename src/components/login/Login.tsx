@@ -5,7 +5,7 @@ import {maxLengthCreator, minLengthCreator, requiredField} from "../../utils/val
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {LoginParamsType} from "../../api/api";
-import {AppDispatch, AppStateType} from "../../redux/store";
+import {AppStateType} from "../../redux/store";
 import {Redirect} from "react-router-dom";
 import styles from '../../components/common/formsControls/FormsControls.module.css'
 
@@ -23,9 +23,9 @@ type LoginPropsType = {
 const maxLength = maxLengthCreator(30)
 const minLength5 = minLengthCreator(5)
 
-const LoginForm = (props: InjectedFormProps<FormDataType>) => {
+const LoginForm = ({handleSubmit, error}: InjectedFormProps<FormDataType>) => {
    return (
-      <form onSubmit={props.handleSubmit}>
+      <form onSubmit={handleSubmit}>
          <div>
             <Field placeholder={'login'}
                    component={FormControl}
@@ -50,9 +50,9 @@ const LoginForm = (props: InjectedFormProps<FormDataType>) => {
                    name={'rememberMe'}
             /> remember me
          </div>
-         {props.error &&
+         {error &&
              <div className={styles.formSummaryError}>
-                {props.error}
+                {error}
              </div>
          }
 
