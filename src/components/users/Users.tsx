@@ -28,8 +28,13 @@ const Users = ({
                }: UsersType) => {
    return (
       <div>
-         <Paginator currentPage={currentPage} onPageChanged={onPageChanged} pageSize={pageSize}
-                    totalUsersCount={totalUsersCount}/>
+         <Paginator
+            currentPage={currentPage}
+            onPageChanged={onPageChanged}
+            pageSize={pageSize}
+
+            totalItemsCount={totalUsersCount}
+         />
          <div>
             {
                users.map(u =>
