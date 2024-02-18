@@ -38,8 +38,6 @@ type SetUserData = ReturnType<typeof setAuthUserData>
 export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => {
    return {type: 'samurai-network/SET-USER-DATE', payload: {userId, email, login, isAuth}} as const
 }
-
-
 //THUNK
 
 export const getAuthUserData = () => async (dispatch: Dispatch) => {
