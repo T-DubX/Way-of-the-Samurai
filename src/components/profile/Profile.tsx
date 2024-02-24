@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, ReactNode} from 'react';
 import {ProfileInfo} from "./profileInfo/ProfileInfo";
 import {MyPostsContainer} from "./myPosts/MyPostsContainer";
 import {PostsType} from "./myPosts/posts/Post";
@@ -15,12 +15,15 @@ type ProfilePageProps = {
    profile: ProfileUser | null
    status: string
    updateStatus: (status: string) => void
+   isOwner: boolean
+   savePhoto: (file: File) => void
 }
 
-export const Profile: FC<ProfilePageProps> = ({profile, status, updateStatus}) => {
+export const Profile: FC<ProfilePageProps> = ({profile, status, updateStatus, isOwner, savePhoto}) => {
    return (
       <div>
-         <ProfileInfo profile={profile} status={status} updateStatus={updateStatus}/>
+         <ProfileInfo profile={profile} status={status} updateStatus={updateStatus} isOwner={isOwner}
+                      savePhoto={savePhoto}/>
          <MyPostsContainer
          />
       </div>

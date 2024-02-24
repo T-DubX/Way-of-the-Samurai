@@ -8,14 +8,14 @@ import {compose} from "redux";
 import {AppStateType} from '../../redux/store';
 import {
    getStatus,
-   getUserProfile,
+   getUserProfile, savePhoto,
    setUserProfile,
    updateStatus,
 } from '../../redux/profile-reducer';
 
 export type ProfileUser = {
-   aboutMe: string
-   contacts: {
+   aboutMe?: string | undefined,
+   contacts?: {
       facebook: string | null,
       website: string | null,
       vk: string | null,
@@ -24,16 +24,16 @@ export type ProfileUser = {
       youtube: string | null,
       github: string | null,
       mainLink: string | null
-   },
-   lookingForAJob: boolean,
-   lookingForAJobDescription: string,
-   fullName: string,
-   userId: number,
+   } | undefined,
+   lookingForAJob?: boolean,
+   lookingForAJobDescription?: string | undefined,
+   fullName?: string | undefined,
+   userId?: number,
    photos: {
-      small: string,
-      large: string
+      small?: string | undefined,
+      large?: string | undefined
    }
-}
+};
 
 type PathParamsType = {
    userId: string
@@ -48,12 +48,14 @@ type ProfileAPIContainerProps = {
    updateStatus: (status: string) => void
    authorizedUserId: number,
    isAuth: boolean
+   savePhoto: (file: File) => void
 }
 
 type PropsType = RouteComponentProps<PathParamsType> & ProfileAPIContainerProps
 
 class ProfileContainer extends React.Component<PropsType> {
-   componentDidMount() {
+
+   refreshProfile() {
       let userId: number = Number(this.props.match.params.userId)
       if (!userId) {
          userId = this.props.authorizedUserId
@@ -65,13 +67,25 @@ class ProfileContainer extends React.Component<PropsType> {
       this.props.getStatus(userId)
    }
 
+   componentDidMount() {
+      this.refreshProfile()
+   }
+
+   componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
+      if (this.props.match.params.userId !== prevProps.match.params.userId) {
+         this.refreshProfile()
+      }
+   }
+
    render() {
 
       return (
          <Profile {...this.props}
+                  isOwner={!this.props.match.params.userId}
                   profile={this.props.profile}
                   status={this.props.status}
                   updateStatus={this.props.updateStatus}
+                  savePhoto={this.props.savePhoto}
          />
       )
    }
@@ -97,7 +111,8 @@ export default compose<React.ComponentType>(
       setUserProfile,
       getUserProfile,
       getStatus,
-      updateStatus
+      updateStatus,
+      savePhoto
    }),
    withRouter,
    // withAuthRedirect

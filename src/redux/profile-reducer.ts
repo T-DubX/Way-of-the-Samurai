@@ -7,12 +7,14 @@ export type AddPostActionType = ReturnType<typeof addPostAC>
 export type SetUserProfileActionType = ReturnType<typeof setUserProfile>
 export type SetStatusActionType = ReturnType<typeof setStatus>
 export type DeletePostActionType = ReturnType<typeof deletePost>
+export type SavePhotoSuccess = ReturnType<typeof savePhotoSuccess>
 
 type ActionType =
    AddPostActionType
    | SetUserProfileActionType
    | SetStatusActionType
    | DeletePostActionType
+   | SavePhotoSuccess
 
 export type InitialStateType = ProfilePageType
 
@@ -58,6 +60,11 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
             status: action.status
          }
       }
+      case "SAVE-PHOTO-SUCCESS": {
+         return {
+            ...state, profile: {...state.profile, photos: action.photos}
+         }
+      }
       default:
          return state
    }
@@ -78,6 +85,11 @@ export const setUserProfile = (profile: ProfileUser) => {
 export const setStatus = (status: string) => {
    return {
       type: 'SET-STATUS', status
+   } as const
+}
+export const savePhotoSuccess = (photos: { large: string, small: string }) => {
+   return {
+      type: 'SAVE-PHOTO-SUCCESS', photos
    } as const
 }
 
@@ -102,5 +114,13 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
 
    if (res.data.resultCode === 0) {
       dispatch(setStatus(res.status.toString()))
+   }
+}
+
+export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
+   const res = await profileAPI.savePhoto(file)
+
+   if (res.data.resultCode === 0) {
+      dispatch(savePhotoSuccess(res.data.data.photos))
    }
 }

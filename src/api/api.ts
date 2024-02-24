@@ -1,4 +1,4 @@
-import axios, {AxiosResponse} from "axios";
+import axios from "axios";
 import {UserType} from "../redux/users-reducer";
 import {ProfileUser} from "../components/profile/ProfileContainer";
 
@@ -53,6 +53,11 @@ export const profileAPI = {
    },
    updateStatus(status: string) {
       return instance.put<StatusResponseType>('profile/status', {status})
+   },
+   savePhoto(photoFile: File) {
+      const formData: FormData = new FormData()
+      formData.append('image', photoFile)
+      return instance.put(`profile/photo`, formData, {headers: {'Content-Type': 'multipart/form-data'}})
    }
 }
 export const authAPI = {

@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {ChangeEvent, FC} from 'react';
 import s from "./ProdileInfo.module.css";
 import mainImg from "../../../assets/images/2219350.jpg";
 import userPhoto from "../../../assets/images/user.png";
@@ -10,11 +10,19 @@ type PropsType = {
    profile: ProfileUser | null
    status: string
    updateStatus: (status: string) => void
+   isOwner: boolean
+   savePhoto: (value: File) => void
 }
 
-export const ProfileInfo: FC<PropsType> = ({profile, status, updateStatus}) => {
+export const ProfileInfo: FC<PropsType> = ({profile, status, updateStatus, isOwner, savePhoto}) => {
    if (!profile) {
       return <Preloader/>
+   }
+
+   const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files?.length) {
+         savePhoto(e.target.files[0])
+      }
    }
 
    return (
@@ -37,6 +45,8 @@ export const ProfileInfo: FC<PropsType> = ({profile, status, updateStatus}) => {
                    <span className={s.name}>
                        {profile.fullName}
                     </span>
+
+                  {isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
                   <ProfileStatus status={status} updateStatus={updateStatus}/>
                </div>
 
@@ -50,7 +60,7 @@ export const ProfileInfo: FC<PropsType> = ({profile, status, updateStatus}) => {
                <span>
                         Education: OGPTK`18
                     </span>
-               <span>Web Site: {profile.contacts.website ? profile.contacts.website : '-'}</span>
+               <span>Web Site: {profile.contacts?.website ? profile.contacts.website : '-'}</span>
 
             </div>
          </div>
