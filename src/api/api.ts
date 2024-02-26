@@ -1,6 +1,7 @@
 import axios from "axios";
 import {UserType} from "../redux/users-reducer";
 import {ProfileUser} from "../components/profile/ProfileContainer";
+import { FormDataType } from "../components/profile/profileInfo/profileDataForm/ProfileDataForm";
 
 const instance = axios.create({
    baseURL: 'https://social-network.samuraijs.com/api/1.0',
@@ -49,7 +50,7 @@ export const profileAPI = {
          .then(res => res.data)
    },
    getStatus(userId: number) {
-      return instance.get<string>(`profile/status/${userId}`)
+      return instance.get<string>(`/profile/status/${userId}`)
    },
    updateStatus(status: string) {
       return instance.put<StatusResponseType>('profile/status', {status})
@@ -58,6 +59,9 @@ export const profileAPI = {
       const formData: FormData = new FormData()
       formData.append('image', photoFile)
       return instance.put(`profile/photo`, formData, {headers: {'Content-Type': 'multipart/form-data'}})
+   },
+   saveProfile(profile: FormDataType) {
+      return instance.put<ResponseType<ProfileUser>>('profile', profile)
    }
 }
 export const authAPI = {

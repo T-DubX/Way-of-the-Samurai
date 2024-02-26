@@ -15,7 +15,7 @@
     height: 90px;
 }
 
-.description {
+.infoContainer {
     display: flex;
     flex-direction: column;
 }
@@ -28,4 +28,8 @@
 
 .wrapperName {
     margin-bottom: 10px;
+}
+
+.contact {
+    padding-left: 10px;
 }

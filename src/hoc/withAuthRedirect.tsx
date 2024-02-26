@@ -13,7 +13,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
   }
 }
 
-export function withAuthRedirect<T>(Component: ComponentType<T>) {
+export function withAuthRedirect<T extends JSX.IntrinsicAttributes>(Component: ComponentType<T>) {
   const RedirectComponent = (props: MapStatePropsType) => {
     let {isAuth, ...restProps} = props
 

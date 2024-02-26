@@ -1,11 +1,12 @@
-import React, {FC, ReactHTMLElement} from "react";
-import {Field, WrappedFieldProps} from "redux-form";
+import React, {FC} from "react";
+import {WrappedFieldProps} from "redux-form";
 import styles from './FormsControls.module.css'
 
+export type TagName = 'textarea' | 'input'
 
-type FormControlProps = WrappedFieldProps & {
-   tagName: 'textarea' | 'input'
-}
+type FormControlProps = {
+   tagName: TagName
+} & WrappedFieldProps
 
 export const FormControl: FC<FormControlProps> = ({input, meta, tagName, ...props}) => {
    const hasError = meta.touched && meta.error;

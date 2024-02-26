@@ -11,7 +11,9 @@ import {
    getUserProfile, savePhoto,
    setUserProfile,
    updateStatus,
+   saveProfile
 } from '../../redux/profile-reducer';
+import { FormDataType } from './profileInfo/profileDataForm/ProfileDataForm';
 
 export type ProfileUser = {
    aboutMe?: string | undefined,
@@ -24,7 +26,7 @@ export type ProfileUser = {
       youtube: string | null,
       github: string | null,
       mainLink: string | null
-   } | undefined,
+   },
    lookingForAJob?: boolean,
    lookingForAJobDescription?: string | undefined,
    fullName?: string | undefined,
@@ -49,6 +51,7 @@ type ProfileAPIContainerProps = {
    authorizedUserId: number,
    isAuth: boolean
    savePhoto: (file: File) => void
+   saveProfile: (profile: FormDataType) => Promise<any>;
 }
 
 type PropsType = RouteComponentProps<PathParamsType> & ProfileAPIContainerProps
@@ -86,6 +89,7 @@ class ProfileContainer extends React.Component<PropsType> {
                   status={this.props.status}
                   updateStatus={this.props.updateStatus}
                   savePhoto={this.props.savePhoto}
+                  saveProfile={this.props.saveProfile}
          />
       )
    }
@@ -112,7 +116,8 @@ export default compose<React.ComponentType>(
       getUserProfile,
       getStatus,
       updateStatus,
-      savePhoto
+      savePhoto,
+      saveProfile,
    }),
    withRouter,
    // withAuthRedirect
