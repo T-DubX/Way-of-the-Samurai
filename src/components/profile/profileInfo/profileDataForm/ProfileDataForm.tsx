@@ -1,4 +1,3 @@
-import React from "react";
 import { ProfileUser } from "../../../profile/ProfileContainer";
 import {
    Field,
@@ -7,7 +6,6 @@ import {
    reduxForm,
 } from "redux-form";
 import { FormControl } from "../../../common/formsControls/FormsControls";
-import { Contact } from "../contact/Contact";
 import s from "../ProdileInfo.module.css";
 
 export type FormDataType = WrappedFieldProps & {
@@ -24,7 +22,6 @@ export const ProfileDataForm = ({
    profile,
    error,
 }: Props & InjectedFormProps<FormDataType, Props>) => {
-   console.log(error)
    return (
       <form onSubmit={handleSubmit}>
          <button>save</button>
@@ -58,7 +55,6 @@ export const ProfileDataForm = ({
                tagName={"input"}
                name={"lookingForAJobDescription"}
             />
-            {/* {profile.lookingForAJobDescription} */}
          </div>
 
          {profile.contacts && (
@@ -75,17 +71,6 @@ export const ProfileDataForm = ({
                            placeholder={el}
                         />
                      </div>
-                     // <Contact
-                     //    key={el}
-                     //    contactTitle={el}
-                     //    contactValue={
-                     //       profile.contacts
-                     //          ? profile.contacts[
-                     //               el as keyof typeof profile.contacts
-                     //            ]
-                     //          : null
-                     //    }
-                     // />
                   );
                })}
             </div>

@@ -25,6 +25,7 @@ export type LoginParamsType = {
    email: string
    password: string
    rememberMe: boolean
+   captcha: string
 }
 
 export type StatusResponseType = Omit<ResponseType, 'fieldsErrors'>
@@ -64,6 +65,7 @@ export const profileAPI = {
       return instance.put<ResponseType<ProfileUser>>('profile', profile)
    }
 }
+
 export const authAPI = {
    getMyProfile() {
       return instance.get<ResponseType<{ id: number, email: string, login: string }>>(`/auth/me`)
@@ -74,6 +76,12 @@ export const authAPI = {
    },
    logout() {
       return instance.delete<ResponseType>('/auth/login')
+   }
+}
+
+export const securityAPI = {
+   getCaptchaUrl() {
+      return instance.get<{url: string}>(`/security/get-captcha-url`)
    }
 }
 
