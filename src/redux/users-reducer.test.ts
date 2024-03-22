@@ -23,6 +23,17 @@ beforeEach(() => {
          },
          status: null,
          followed: false
+      },
+      {
+         name: 'Gena',
+         id: 3,
+         uniqueUrlName: null,
+         photos: {
+            small: null,
+            large: null
+         },
+         status: null,
+         followed: true
       }],
       pageSize: 5,
       totalUsersCount: 0,
@@ -39,7 +50,7 @@ test('length should be at data acquisition', () => {
    const newState = usersReducer(state, action)
 
 
-   expect(newState.users.length).toBe(2)
+   expect(newState.users.length).toBe(3)
 })
 
 test('follow success' , () => {
@@ -55,5 +66,5 @@ test('unfollow success' , () => {
    const newState = usersReducer(state, action)
 
    expect(newState.users[0].followed).toBeFalsy()
-   expect(newState.users[1].followed).toBeTruthy()
+   expect(newState.users[2].followed).toBeTruthy()
 })

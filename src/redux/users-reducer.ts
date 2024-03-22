@@ -1,6 +1,7 @@
-import {usersAPI} from "../api/api";
+import {usersAPI, ResponseType} from "../api/api";
 import {Dispatch} from "redux";
 import {updateObjectInArray} from "../utils/objects-helpers";
+
 
 export type UserType = {
    name: string,
@@ -121,10 +122,10 @@ export const requestUsers = (page: number, pageSize: number) =>
       dispatch(setTotalUsersCount(data.totalCount))
    }
 
-const followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod: any, actionCreator: any) => {
+const followUnfollowFlow = async (dispatch: Dispatch<ActionType>, userId: number, apiMethod: (userId: number) => Promise<ResponseType>, actionCreator: (userId: number) => ActionType) => {
    dispatch(toggleFollowingProgress(userId, true))
    const data = await apiMethod(userId)
-
+   
    if (data.resultCode === 0) {
       dispatch(actionCreator(userId))
    }
@@ -133,10 +134,10 @@ const followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod:
 
 export const follow = (userId: number) => async (dispatch: Dispatch) => {
    const apiMethod = usersAPI.follow.bind(usersAPI)
-   followUnfollowFlow(dispatch, userId, apiMethod, followSuccess)
+   await followUnfollowFlow(dispatch, userId, apiMethod, followSuccess)
 }
 
 export const unfollow = (userId: number) => async (dispatch: Dispatch) => {
    const apiMethod = usersAPI.unfollow.bind(usersAPI)
-   followUnfollowFlow(dispatch, userId, apiMethod, unfollowSuccess)
+   await followUnfollowFlow(dispatch, userId, apiMethod, unfollowSuccess)
 }
